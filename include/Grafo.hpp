@@ -12,7 +12,7 @@ using namespace std;
 
 class Graph {
 public:
-    vector<Vertex> vertexes;
+    vector<Vertex> vertices;
     vector<Edge> streets;
     vector<DistributionCenter> distributionCenters;
     vector<Seller> sellers;

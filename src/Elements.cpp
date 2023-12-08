@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <limits>
 #include "../include/Elements.hpp"
 
 using namespace std;
@@ -19,8 +20,11 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 /* ------------ CORNER ------------ */
 Vertex::Vertex() noexcept {
     static int32_t id = 0;
+    name = "Corner" + to_string(id);
     this->id = id++;
-    streets_connected = vector<Edge>();
+    streets_connected = vector<tuple<Edge, int>>();
+    distance = INT_MAX;
+    previous = nullptr;
     this->type = "Corner";
 }
 
@@ -28,7 +32,6 @@ Vertex::Vertex() noexcept {
 /* ------------ EDGE ------------ */
 Edge::Edge(const string n, Vertex* v1, Vertex* v2, int sn, int en) : name(n), vertex1(v1), vertex2(v2), starting_number(sn), ending_number(en) {
     active = true;
-    distance = abs(ending_number - starting_number);
 }
 
 

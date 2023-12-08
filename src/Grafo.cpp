@@ -3,13 +3,13 @@
 Graph::Graph() {}
 
 void Graph::addVertex(const Vertex& vertex) {
-    vertexes.push_back(vertex);
+    vertices.push_back(vertex);
 }
 
 void Graph::addStreet(const Edge& edge) {
     streets.push_back(edge);
-    edge.vertex1->streets_connected.push_back(edge);
-    edge.vertex2->streets_connected.push_back(edge);
+    edge.vertex1->streets_connected.push_back(make_tuple(edge, edge.starting_number));
+    edge.vertex2->streets_connected.push_back(make_tuple(edge, edge.ending_number));
 }
 
 void Graph::addDistributionCenter(const DistributionCenter& dc) {

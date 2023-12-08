@@ -42,10 +42,10 @@ int main() {
     //     cout << vertex.type << endl;
     // }
 
-    cout << edge1.distance << "|" << edge1.starting_number << "|" << edge1.ending_number << endl;
-    cout << edge2.distance << "|" << edge2.starting_number << "|" << edge2.ending_number << endl;
+    // cout << edge1.distance << "|" << edge1.starting_number << "|" << edge1.ending_number << endl;
+    // cout << edge2.distance << "|" << edge2.starting_number << "|" << edge2.ending_number << endl;
 
-    // graph.displayInfo();
+    graph.displayInfo();
 
     return 0;
 }
