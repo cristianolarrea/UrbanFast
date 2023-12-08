@@ -25,7 +25,6 @@ void Graph::addDeliveryman(const Deliveryman& deliveryman) {
 }
 
 void Graph::displayInfo() const {
-    
     cout << "STREETS:" << endl;
     for (const auto& street : streets) {
         cout << street.name << endl;

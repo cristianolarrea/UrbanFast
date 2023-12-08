@@ -26,15 +26,15 @@ Vertex::Vertex() noexcept {
 
 /* ---------------------------------------------- */
 /* ------------ EDGE ------------ */
-Edge::Edge(const string& n, Vertex* v1, Vertex* v2, int sn, int en) : name(n), vertex1(v1), vertex2(v2), starting_number(sn), ending_number(en) {
+Edge::Edge(const string n, Vertex* v1, Vertex* v2, int sn, int en) : name(n), vertex1(v1), vertex2(v2), starting_number(sn), ending_number(en) {
     active = true;
-    distance = ending_number - starting_number;
+    distance = abs(ending_number - starting_number);
 }
 
 
 /* ---------------------------------------------- */
 /* ------------ DISTRIBUTION CENTER ------------ */
-DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number, string type = "Distribution Center") : Vertex() {
+DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number) : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -87,7 +87,7 @@ void DistributionCenter::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ SELLER ------------*/
 
-Seller::Seller(const string& n, const string& street, const int32_t& number, string type = "Seller") : Vertex() {
+Seller::Seller(const string& n, const string& street, const int32_t& number) : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -124,7 +124,7 @@ void Seller::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ CLIENT ------------*/
 
-Client::Client(const string& n, const string& street, const int32_t& number, string type = "Client") : Vertex() {
+Client::Client(const string& n, const string& street, const int32_t& number) : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -142,7 +142,7 @@ void Client::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ DELIVERYMAN ------------*/
 
-Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw, string type = "Deliveryman") : Vertex(), vehicle(v, mw) {
+Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw) : Vertex(), vehicle(v, mw) {
     name = n;
     this->street = street;
     this->number = number;

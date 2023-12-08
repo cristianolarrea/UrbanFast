@@ -29,20 +29,23 @@ int main() {
     Edge edge3("Rua 3", &vertex3, &vertex1, 3, 10);
     Edge edge4("Rua 4", &vertex1, &client, 4, 10);
     Edge edge5("Rua 5", &vertex2, &seller, 5, 10);
+    Edge edge6("Rua 6", &vertex3, &deliveryman, 10, 6);
 
     graph.addStreet(edge1);
     graph.addStreet(edge2);
     graph.addStreet(edge3);
     graph.addStreet(edge4);
     graph.addStreet(edge5);
+    graph.addStreet(edge6);
 
     // for (const auto& vertex : graph.vertexes) {
     //     cout << vertex.type << endl;
     // }
 
-    // cout << edge1.distance << endl;
+    cout << edge1.distance << "|" << edge1.starting_number << "|" << edge1.ending_number << endl;
+    cout << edge2.distance << "|" << edge2.starting_number << "|" << edge2.ending_number << endl;
 
-    graph.displayInfo();
+    // graph.displayInfo();
 
     return 0;
 }

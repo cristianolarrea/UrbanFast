@@ -35,7 +35,7 @@ public:
     bool active;
     double distance;
 
-    Edge(const string& n, Vertex* v1, Vertex* v2, int sn, int en);
+    Edge(const string n, Vertex* v1, Vertex* v2, int sn, int en);
 };
 
 class Vertex {
@@ -56,7 +56,7 @@ class DistributionCenter : public Vertex {
 public:
     vector<tuple<Product, int>> inventory;
 
-    DistributionCenter(const string& n, const string& street, const int32_t& number, string type);
+    DistributionCenter(const string& n, const string& street, const int32_t& number);
 
     void addProduct(const Product& product, const int& quantity);
     void removeProduct(const Product& product);
@@ -68,7 +68,7 @@ class Seller : public Vertex {
 public:
     vector<Product> catalog;
 
-    Seller(const string& n, const string& street, const int32_t& number, string type);
+    Seller(const string& n, const string& street, const int32_t& number);
 
     void addProduct(const Product& product);
     void removeProduct(const Product& product);
@@ -77,7 +77,7 @@ public:
 
 class Client : public Vertex {
 public:
-    Client(const string& n, const string& street, const int32_t& number, string type);
+    Client(const string& n, const string& street, const int32_t& number);
 
     void displayInfo() const;
 };
@@ -87,7 +87,7 @@ public:
     Vehicle vehicle;
     double currentCapacity = vehicle.maxCapacity;
 
-    Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw, string type);
+    Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw);
 
     void displayInfo() const;
 };
