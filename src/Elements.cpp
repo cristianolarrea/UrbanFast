@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
-#include "../include/Nodes.hpp"
+#include "../include/Elements.hpp"
 
 using namespace std;
 
@@ -16,9 +16,21 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 
 
 /* ---------------------------------------------- */
+/* ------------ CORNER ------------ */
+Corner::Corner() noexcept {
+    static int32_t id = 0;
+    this->id = id++;
+}
+
+/* ---------------------------------------------- */
+/* ------------ EDGE ------------ */
+Edge::Edge(const string& n, double w, Corner* v1, Corner* v2, bool a) : name(n), distance(w), vertex1(v1), vertex2(v2), active(a) {}
+
+
+/* ---------------------------------------------- */
 /* ------------ DISTRIBUTION CENTER ------------*/
 
-DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number) : Vertex() {
+DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number) : TempVertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -70,7 +82,7 @@ void DistributionCenter::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ SELLER ------------*/
 
-Seller::Seller(const string& n, const string& street, const int32_t& number) : Vertex() {
+Seller::Seller(const string& n, const string& street, const int32_t& number) : TempVertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -106,7 +118,7 @@ void Seller::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ CLIENT ------------*/
 
-Client::Client(const string& n, const string& street, const int32_t& number) : Vertex() {
+Client::Client(const string& n, const string& street, const int32_t& number) : TempVertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -123,7 +135,7 @@ void Client::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ DELIVERYMAN ------------*/
 
-Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw) : Vertex(), vehicle(v, mw) {
+Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw) : TempVertex(), vehicle(v, mw) {
     name = n;
     this->street = street;
     this->number = number;

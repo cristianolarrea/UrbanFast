@@ -10,8 +10,8 @@ void Graph::addCorner(const Corner& vertex) {
 
 void Graph::addStreet(const Edge& edge) {
     streets.push_back(edge);
-    edge.vertex1->streets.push_back(edge);
-    edge.vertex2->streets.push_back(edge);
+    edge.vertex1->streets_connected.push_back(edge);
+    edge.vertex2->streets_connected.push_back(edge);
 }
 
 void Graph::addDistributionCenter(const DistributionCenter& dc) {
@@ -27,36 +27,33 @@ void Graph::addDeliveryman(const Deliveryman& deliveryman) {
 }
 
 void Graph::displayInfo() const {
-    cout << "Corners:" << endl;
-    for (const auto& corner : corners) {
-        cout << "Corner " << corner.id << endl;
-        cout << "Streets:" << endl;
-        for (const auto& street : corner.streets) {
-            cout << street.name << endl;
-        }
-        cout << endl;
-    }
-    cout << endl;
+    // cout << "CORNERS:" << endl;
+    // for (Corner corner : corners) {
+    //     cout << "Corner" << corner.id << endl;
+    //     for (const auto& street : corner.streets_connected) {
+    //         cout << street.name << endl;
+    //     }
+    // }
 
-    cout << "Streets:" << endl;
+    cout << "STREETS:" << endl;
     for (const auto& street : streets) {
         cout << street.name << endl;
     }
     cout << endl;
 
-    cout << "Distribution Centers:" << endl;
+    cout << "DISTRIBUTION CENTERS:" << endl;
     for (const auto& dc : distributionCenters) {
         dc.displayInfo();
     }
     cout << endl;
 
-    cout << "Sellers:" << endl;
+    cout << "SELLERS:" << endl;
     for (const auto& seller : sellers) {
         seller.displayInfo();
     }
     cout << endl;
 
-    cout << "Deliverymen:" << endl;
+    cout << "DELIVERYMEN:" << endl;
     for (const auto& deliveryman : deliverymen) {
         deliveryman.displayInfo();
     }

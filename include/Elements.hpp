@@ -24,7 +24,28 @@ public:
     Vehicle(const string& n, double mw);
 };
 
-class Vertex {
+class Corner;
+
+class Edge {
+public:
+    std::string name;
+    double distance;
+    Corner* vertex1;
+    Corner* vertex2;
+    bool active;
+
+    Edge(const std::string& n, double w, Corner* v1, Corner* v2, bool a = true);
+};
+
+class Corner {
+public:
+    int32_t id;
+    vector<Edge> streets_connected;
+
+    Corner() noexcept;
+};
+
+class TempVertex {
 public:
     string name;
     string street;
@@ -33,7 +54,8 @@ public:
     virtual void displayInfo() const = 0;
 };
 
-class DistributionCenter : public Vertex {
+
+class DistributionCenter : public TempVertex {
 public:
     vector<tuple<Product, int>> inventory;
 
@@ -45,7 +67,7 @@ public:
     void displayInfo() const override;
 };
 
-class Seller : public Vertex {
+class Seller : public TempVertex {
 public:
     vector<Product> catalog;
 
@@ -56,14 +78,14 @@ public:
     void displayInfo() const override;
 };
 
-class Client : public Vertex {
+class Client : public TempVertex {
 public:
     Client(const string& n, const string& street, const int32_t& number);
 
     void displayInfo() const override;
 };
 
-class Deliveryman : public Vertex {
+class Deliveryman : public TempVertex {
 public:
     Vehicle vehicle;
     double currentCapacity = vehicle.maxCapacity;

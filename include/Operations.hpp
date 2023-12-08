@@ -1,7 +1,7 @@
-#ifndef NODE_TYPES_HPP
-#define NODE_TYPES_HPP
+#ifndef OPERATIONS_HPP
+#define OPERATIONS_HPP
 
-#include "Nodes.hpp"
+#include "Elements.hpp"
 #include "Request.hpp"
 #include "Grafo.hpp"
 
@@ -9,5 +9,9 @@
 #include <vector>
 #include <tuple>
 #include <string>
+
+using namespace std;
+
+
 
 #endif 
