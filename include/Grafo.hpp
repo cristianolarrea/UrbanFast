@@ -12,7 +12,7 @@ using namespace std;
 
 class Graph {
 public:
-    vector<Corner> corners;
+    vector<Vertex> vertexes;
     vector<Edge> streets;
     vector<DistributionCenter> distributionCenters;
     vector<Seller> sellers;
@@ -20,7 +20,7 @@ public:
 
     Graph();
 
-    void addCorner(const Corner& vertex);
+    void addVertex(const Vertex& vertex);
     void addStreet(const Edge& edge);
     void addDistributionCenter(const DistributionCenter& dc);
     void addSeller(const Seller& seller);

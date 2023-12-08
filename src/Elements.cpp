@@ -17,23 +17,28 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 
 /* ---------------------------------------------- */
 /* ------------ CORNER ------------ */
-Corner::Corner() noexcept {
+Vertex::Vertex() noexcept {
     static int32_t id = 0;
     this->id = id++;
+    streets_connected = vector<Edge>();
+    this->type = "Corner";
 }
 
 /* ---------------------------------------------- */
 /* ------------ EDGE ------------ */
-Edge::Edge(const string& n, double w, Corner* v1, Corner* v2, bool a) : name(n), distance(w), vertex1(v1), vertex2(v2), active(a) {}
+Edge::Edge(const string& n, Vertex* v1, Vertex* v2, int sn, int en) : name(n), vertex1(v1), vertex2(v2), starting_number(sn), ending_number(en) {
+    active = true;
+    distance = ending_number - starting_number;
+}
 
 
 /* ---------------------------------------------- */
-/* ------------ DISTRIBUTION CENTER ------------*/
-
-DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number) : TempVertex() {
+/* ------------ DISTRIBUTION CENTER ------------ */
+DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number, string type = "Distribution Center") : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
+    this->type = "Distribution Center";
 }
 
 // Adds a new product to the inventory [(Produto1, Quantidade)]
@@ -82,10 +87,11 @@ void DistributionCenter::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ SELLER ------------*/
 
-Seller::Seller(const string& n, const string& street, const int32_t& number) : TempVertex() {
+Seller::Seller(const string& n, const string& street, const int32_t& number, string type = "Seller") : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
+    this->type = "Seller";
 }
 
 // Adds a new product to the seller's catalog
@@ -118,10 +124,11 @@ void Seller::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ CLIENT ------------*/
 
-Client::Client(const string& n, const string& street, const int32_t& number) : TempVertex() {
+Client::Client(const string& n, const string& street, const int32_t& number, string type = "Client") : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
+    this->type = "Client";
 }
 
 // Displays the information of the client
@@ -135,10 +142,11 @@ void Client::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ DELIVERYMAN ------------*/
 
-Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw) : TempVertex(), vehicle(v, mw) {
+Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw, string type = "Deliveryman") : Vertex(), vehicle(v, mw) {
     name = n;
     this->street = street;
     this->number = number;
+    this->type = "Deliveryman";
 }
 
 // Displays the information of the deliveryman

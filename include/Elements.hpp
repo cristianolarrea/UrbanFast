@@ -24,75 +24,72 @@ public:
     Vehicle(const string& n, double mw);
 };
 
-class Corner;
-
+class Vertex;
 class Edge {
 public:
     std::string name;
-    double distance;
-    Corner* vertex1;
-    Corner* vertex2;
+    Vertex* vertex1;
+    Vertex* vertex2;
+    int starting_number;
+    int ending_number;
     bool active;
+    double distance;
 
-    Edge(const std::string& n, double w, Corner* v1, Corner* v2, bool a = true);
+    Edge(const string& n, Vertex* v1, Vertex* v2, int sn, int en);
 };
 
-class Corner {
-public:
-    int32_t id;
-    vector<Edge> streets_connected;
-
-    Corner() noexcept;
-};
-
-class TempVertex {
+class Vertex {
 public:
     string name;
     string street;
     int32_t number;
+    string type;
+    int32_t id;
+    vector<Edge> streets_connected;
 
-    virtual void displayInfo() const = 0;
+    Vertex() noexcept;
+
+    void displayInfo() const;
 };
 
-
-class DistributionCenter : public TempVertex {
+class DistributionCenter : public Vertex {
 public:
     vector<tuple<Product, int>> inventory;
 
-    DistributionCenter(const string& n, const string& street, const int32_t& number);
+    DistributionCenter(const string& n, const string& street, const int32_t& number, string type);
 
     void addProduct(const Product& product, const int& quantity);
     void removeProduct(const Product& product);
     void updateProductQuantity(const Product& product, const int& new_quantity);
-    void displayInfo() const override;
+    void displayInfo() const;
 };
 
-class Seller : public TempVertex {
+class Seller : public Vertex {
 public:
     vector<Product> catalog;
 
-    Seller(const string& n, const string& street, const int32_t& number);
+    Seller(const string& n, const string& street, const int32_t& number, string type);
 
     void addProduct(const Product& product);
     void removeProduct(const Product& product);
-    void displayInfo() const override;
+    void displayInfo() const;
 };
 
-class Client : public TempVertex {
+class Client : public Vertex {
 public:
-    Client(const string& n, const string& street, const int32_t& number);
+    Client(const string& n, const string& street, const int32_t& number, string type);
 
-    void displayInfo() const override;
+    void displayInfo() const;
 };
 
-class Deliveryman : public TempVertex {
+class Deliveryman : public Vertex {
 public:
     Vehicle vehicle;
     double currentCapacity = vehicle.maxCapacity;
 
-    Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw);
+    Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw, string type);
 
-    void displayInfo() const override;
+    void displayInfo() const;
 };
 
 #endif

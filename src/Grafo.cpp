@@ -1,11 +1,9 @@
 #include "../include/Grafo.hpp"
 
-// Métodos do Grafo
-
 Graph::Graph() {}
 
-void Graph::addCorner(const Corner& vertex) {
-    corners.push_back(vertex);
+void Graph::addVertex(const Vertex& vertex) {
+    vertexes.push_back(vertex);
 }
 
 void Graph::addStreet(const Edge& edge) {
@@ -27,14 +25,7 @@ void Graph::addDeliveryman(const Deliveryman& deliveryman) {
 }
 
 void Graph::displayInfo() const {
-    // cout << "CORNERS:" << endl;
-    // for (Corner corner : corners) {
-    //     cout << "Corner" << corner.id << endl;
-    //     for (const auto& street : corner.streets_connected) {
-    //         cout << street.name << endl;
-    //     }
-    // }
-
+    
     cout << "STREETS:" << endl;
     for (const auto& street : streets) {
         cout << street.name << endl;

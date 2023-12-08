@@ -13,44 +13,34 @@ int main() {
     graph.addSeller(seller);
     graph.addDeliveryman(deliveryman);
 
-    Corner corner1;
-    Corner corner2;
-    Corner corner3;
+    Vertex vertex1;
+    Vertex vertex2;
+    Vertex vertex3;
 
-    graph.addCorner(corner1);
-    graph.addCorner(corner2);
-    graph.addCorner(corner3);
+    graph.addVertex(vertex1);
+    graph.addVertex(vertex2);
+    graph.addVertex(vertex3);
+    graph.addVertex(client);
+    graph.addVertex(deliveryman);
+    graph.addVertex(seller);
 
-    Edge edge1("Galeto Sat's", 10.0, &corner1, &corner2);
-    Edge edge2("Praia do Flamengo", 20.0, &corner2, &corner3);
-    Edge edge3("Praia de Botafogo", 30.0, &corner3, &corner1);
+    Edge edge1("Rua 1", &vertex1, &vertex2, 1, 10);
+    Edge edge2("Rua 2", &vertex2, &vertex3, 2, 10);
+    Edge edge3("Rua 3", &vertex3, &vertex1, 3, 10);
+    Edge edge4("Rua 4", &vertex1, &client, 4, 10);
+    Edge edge5("Rua 5", &vertex2, &seller, 5, 10);
 
     graph.addStreet(edge1);
     graph.addStreet(edge2);
     graph.addStreet(edge3);
+    graph.addStreet(edge4);
+    graph.addStreet(edge5);
 
-    cout << "CORNERS:" << endl;
+    // for (const auto& vertex : graph.vertexes) {
+    //     cout << vertex.type << endl;
+    // }
 
-    cout << "Corner " << corner1.id << endl;
-    for (const auto& street : corner1.streets_connected) {
-        cout << street.name << endl;
-    }
-
-    cout << endl;
-
-    cout << "Corner " << corner2.id << endl;
-    for (const auto& street : corner2.streets_connected) {
-        cout << street.name << endl;
-    }
-
-    cout << endl;
-
-    cout << "Corner " << corner3.id << endl;
-    for (const auto& street : corner3.streets_connected) {
-        cout << street.name << endl;
-    }
-
-    cout << endl;
+    // cout << edge1.distance << endl;
 
     graph.displayInfo();
 
