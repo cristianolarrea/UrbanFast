@@ -1,17 +1,17 @@
-#include "Grafo.hpp"
-
-
+#include "../include/Grafo.hpp"
 
 // Métodos do Grafo
 
 Graph::Graph() {}
 
-void Graph::addCorner(const Vertex& vertex) {
+void Graph::addCorner(const Corner& vertex) {
     corners.push_back(vertex);
 }
 
 void Graph::addStreet(const Edge& edge) {
     streets.push_back(edge);
+    edge.vertex1->streets.push_back(edge);
+    edge.vertex2->streets.push_back(edge);
 }
 
 void Graph::addDistributionCenter(const DistributionCenter& dc) {
@@ -26,48 +26,39 @@ void Graph::addDeliveryman(const Deliveryman& deliveryman) {
     deliverymen.push_back(deliveryman);
 }
 
-void Graph::removeCorner(const Vertex& vertex) {
-    for (auto it = corners.begin(); it != corners.end(); ++it) {
-        if (it->name == vertex.name) {
-            corners.erase(it);
-            break;
+void Graph::displayInfo() const {
+    cout << "Corners:" << endl;
+    for (const auto& corner : corners) {
+        cout << "Corner " << corner.id << endl;
+        cout << "Streets:" << endl;
+        for (const auto& street : corner.streets) {
+            cout << street.name << endl;
         }
+        cout << endl;
     }
-}
+    cout << endl;
 
-void Graph::removeStreet(const Edge& edge) {
-    for (auto it = streets.begin(); it != streets.end(); ++it) {
-        if (it->name == edge.name) {
-            streets.erase(it);
-            break;
-        }
+    cout << "Streets:" << endl;
+    for (const auto& street : streets) {
+        cout << street.name << endl;
     }
-}
+    cout << endl;
 
-void Graph::removeDistributionCenter(const DistributionCenter& dc) {
-    for (auto it = distributionCenters.begin(); it != distributionCenters.end(); ++it) {
-        if (it->name == dc.name) {
-            distributionCenters.erase(it);
-            break;
-        }
+    cout << "Distribution Centers:" << endl;
+    for (const auto& dc : distributionCenters) {
+        dc.displayInfo();
     }
-}
+    cout << endl;
 
-void Graph::removeSeller(const Seller& seller) {
-    for (auto it = sellers.begin(); it != sellers.end(); ++it) {
-        if (it->name == seller.name) {
-            sellers.erase(it);
-            break;
-        }
+    cout << "Sellers:" << endl;
+    for (const auto& seller : sellers) {
+        seller.displayInfo();
     }
-}
+    cout << endl;
 
-void Graph::removeDeliveryman(const Deliveryman& deliveryman) {
-    for (auto it = deliverymen.begin(); it != deliverymen.end(); ++it) {
-        if (it->name == deliveryman.name) {
-            deliverymen.erase(it);
-            break;
-        }
+    cout << "Deliverymen:" << endl;
+    for (const auto& deliveryman : deliverymen) {
+        deliveryman.displayInfo();
     }
+    cout << endl;
 }
-
