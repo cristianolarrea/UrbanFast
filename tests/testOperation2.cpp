@@ -47,6 +47,13 @@ int main() {
     graph.addVertex(&c2);
     graph.addVertex(&c3);
 
+    // DistributionCenter dc1("dc1", "Rua 1", 20);
+    // DistributionCenter dc2("dc2", "Rua 2", 30);
+    // DistributionCenter dc3("dc3", "Rua 5", 50);
+    // graph.addVertex(&dc1);
+    // graph.addVertex(&dc2);
+    // graph.addVertex(&dc3);
+
     Edge edge1("Rua 2", &esq1, &s1, 20, 30);
     Edge edge2("Rua 2", &s1, &esq2, 30, 40);
     Edge edge3("Rua 9", &esq2, &c1, 20, 37);
@@ -64,6 +71,10 @@ int main() {
     Edge edge15("Rua 5", &esq3, &s2, 70, 77);
     Edge edge16("Rua 5", &esq4, &s2, 77, 200);
     Edge edge17("Rua 6", &esq5, &esq4, 20, 200);
+    // Edge edge18("Rua 6", &dc1, &esq4, 20, 200);
+    // Edge edge19("Rua 6", &dc2, &c3, 20, 200);
+    // Edge edge20("Rua 6", &esq2, &dc3, 20, 200);
+    // Edge edge21("Rua 6", &s1, &dc1, 20, 200);
 
     graph.addStreet(&edge1);
     graph.addStreet(&edge2);
@@ -82,8 +93,16 @@ int main() {
     graph.addStreet(&edge15);
     graph.addStreet(&edge16);
     graph.addStreet(&edge17);
+    // graph.addStreet(&edge18);
+    // graph.addStreet(&edge19);
+    // graph.addStreet(&edge20);
+    // graph.addStreet(&edge21);
 
     Product p1("p1", 20.0, 30.0);
+    
+    // dc1.addProduct(p1, 20);
+    // dc2.addProduct(p1, 5);
+    // dc3.addProduct(p1, 15);
 
     Request request(c3, s3, p1, 10);
 
@@ -103,8 +122,12 @@ int main() {
     cout << "" << endl;
 
     for (int i=0; i<path.size(); i++) {
-        cout << path[i]->name << endl;
+        cout << path[i]->name << ", " << path[i]->starting_number << "-" << path[i]->ending_number << endl;
     }
+
+    // tuple<Vertex*, Vertex*, vector<Edge*>> answer = operation3(graph, request);
+
+
 
     return 0;
 }

@@ -23,8 +23,9 @@ Vertex::Vertex() noexcept {
     this->id = id++;
     name = "Corner" + to_string(id);
     streets_connected = vector<tuple<Edge*, int>>();
+    inventory = vector<tuple<Product, int>>();
     distance = INT_MAX;
-    predecessor = nullptr;
+    //predecessor = nullptr;
     type = "Corner";
 }
 
@@ -37,7 +38,7 @@ Edge::Edge(const string n, Vertex* v1, Vertex* v2, int sn, int en) : name(n), ve
 
 /* ---------------------------------------------- */
 /* ------------ DISTRIBUTION CENTER ------------ */
-DistributionCenter::DistributionCenter(const string& n, const string& street, const int32_t& number) : Vertex() {
+DistributionCenter::DistributionCenter(const string& n, const string& street, const int& number) : Vertex() {
     name = n;
     this->street = street;
     this->number = number;
@@ -90,7 +91,7 @@ void DistributionCenter::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ SELLER ------------*/
 
-Seller::Seller(const string& n, const string& street, const int32_t& number) : Vertex() {
+Seller::Seller(const string& n, const string& street, const int& number) : Vertex() {
     this->name = n;
     this->street = street;
     this->number = number;
@@ -127,7 +128,7 @@ void Seller::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ CLIENT ------------*/
 
-Client::Client(const std::string& n, const std::string& street, const int32_t& number) : Vertex() {
+Client::Client(const std::string& n, const std::string& street, const int& number) : Vertex() {
     this->name = n;
     this->street = street;
     this->number = number;

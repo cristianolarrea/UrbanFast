@@ -42,12 +42,13 @@ class Vertex {
 public:
     string name;
     string street;
-    int32_t number;
-    int32_t id;
     string type;
-    vector<tuple<Edge*, int>> streets_connected;
     int distance;
-    Vertex* predecessor;
+    int number;
+    int id;
+    //Vertex* predecessor;
+    vector<tuple<Edge*, int>> streets_connected;
+    vector<tuple<Product, int>> inventory;
 
     Vertex() noexcept;
 };
@@ -57,7 +58,7 @@ class DistributionCenter : public Vertex {
 public:
     vector<tuple<Product, int>> inventory;
 
-    DistributionCenter(const string& n, const string& street, const int32_t& number);
+    DistributionCenter(const string& n, const string& street, const int& number);
 
     void addProduct(const Product& product, const int& quantity);
     void removeProduct(const Product& product);
@@ -70,7 +71,7 @@ public:
     vector<Product> catalog;
 
 
-    Seller(const string& n, const string& street, const int32_t& number);
+    Seller(const string& n, const string& street, const int& number);
 
     void addProduct(const Product& product);
     void removeProduct(const Product& product);
@@ -79,7 +80,7 @@ public:
 
 class Client : public Vertex {
 public:
-    Client(const string& n, const string& street, const int32_t& number);
+    Client(const string& n, const string& street, const int& number);
 
     void displayInfo() const;
 };
@@ -89,7 +90,7 @@ public:
     Vehicle vehicle;
     double currentCapacity = vehicle.maxCapacity;
 
-    Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw);
+    Deliveryman(const string& n, const string& street, const int& number, const string& v, double mw);
 
     void displayInfo() const;
 };

@@ -1,5 +1,6 @@
 #include "Grafo.cpp"
 #include "Elements.cpp"
+#include "Request.cpp"
 
 #include <limits>
 #include <iostream>
@@ -9,12 +10,14 @@
 
 using namespace std;
 
+
 // Função para trocar dois vértices
 void swap(vector<tuple<Vertex*, int>>& heap, int i, int j) {
     tuple<Vertex*, int> obj = heap[i];
     heap[i] = heap[j];
     heap[j] = obj;
 }
+
 
 // Função para realizar o heapify
 void heapify(vector<tuple<Vertex*, int>>& heap, int n, int i) {
@@ -35,6 +38,7 @@ void heapify(vector<tuple<Vertex*, int>>& heap, int n, int i) {
         heapify(heap, n, smallest);
     }
 }
+
 
 void insertIntoHeap(vector<tuple<Vertex*, int>>& heap, Vertex& v, int distance) {
     // Criar uma nova tupla com o vértice e a distância
@@ -62,6 +66,7 @@ void insertIntoHeap(vector<tuple<Vertex*, int>>& heap, Vertex& v, int distance) 
         }
     }
 }
+
 
 // Função para remover o elemento de menor distância do heap
 Vertex* removeMin(vector<tuple<Vertex*, int>>& heap) {
@@ -118,48 +123,57 @@ void dijkstra(Vertex& start, Graph& graph, vector<int> &distances, vector<Vertex
             }
         }
     }
-
-    // for (int i=0; i<graph.nVertices; i++) {
-    //      if (parents[i]) {
-    //          cout << "parent de " + to_string(i) + "é: " + parents[i]->name << endl;
-    //      } else {
-    //          cout << "ponteiro vazio para" << to_string(i) << endl;
-    //      }
-    //  }
 }
 
+
+/*
+GETS THE PATH FROM A POINT TO ANOTHER
+*/
 vector<Edge*> getPath(Vertex& start, Vertex& destination, const vector<Vertex*>& parents) {
     vector<Vertex*> path;
     vector<Edge*> path_as_streets;
 
     Vertex* current = &destination;
-    Vertex* parent_vertex;
-
-    int parent_id;
-    // the index where the current vertex is located is the id of its parent
-    for (int i = 0; i < parents.size(); i++) {
-        
-        if (parents[i]->id == current->id) {
-            parent_id = i;
-        
-            for (int i = 0; i < parents.size(); i++) {
-                if (parents[i]->id == parent_id) {current = parents[i];}            
-            }
-            
-            path.push_back(current);
-        }
+    path.push_back(current);
+    
+    while (current->id != start.id) {
+        Vertex* parent = parents[current->id];
+        current = parent;
+        path.push_back(parent);
     }
 
     for (int i = 0; i < path.size(); i++) {
         vector<tuple<Edge*, int>> streets_connected_to_vertex_i = path[i]->streets_connected;
+        
         for (int j=0; j < streets_connected_to_vertex_i.size(); j++) {
             Edge* street_j_connected_to_vertex_i = get<0>(streets_connected_to_vertex_i[j]);
-
-            if (street_j_connected_to_vertex_i->vertex1->id == path[i]->id || street_j_connected_to_vertex_i->vertex2->id == path[i]->id) {
+            
+            if (street_j_connected_to_vertex_i->vertex1->id == path[i]->id) {
                 path_as_streets.push_back(street_j_connected_to_vertex_i);
             }
         }
     }
 
+    reverse(path_as_streets.begin(), path_as_streets.end());
+
     return path_as_streets;
+}
+
+
+/*
+CHECKS IF THERE IS THE PRODUCT IN THE DESIRED QUANTITY AT THE DISTRIBUTION CENTER
+*/
+bool isThereProduct(Vertex* distribution_center, Request& request) {
+    // para cada produto no inventario do centro de distribuicao
+    for (tuple<Product, int> product : distribution_center->inventory) {
+        // se forem o mesmo produto
+        if ((&get<0>(product))->name == request.product.name) {
+            // se a quantidade do produto no centro de distribuicao for maior que a quantidade solicitada
+            if ((get<1>(product)) > request.quantity) {
+                // retorna true
+                return true;
+            }
+        }
+    }
+    return false;
 }
