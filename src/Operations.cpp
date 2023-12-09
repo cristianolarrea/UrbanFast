@@ -8,6 +8,7 @@ vector<Vertex*> operation1(Graph& graph, int n_entregadores, Request& request) {
 
     int counter = 0;
     vector<Vertex*> deliverymen(n_entregadores);
+
     vector<int> distances(graph.nVertices);
     vector<Vertex*> parents(graph.nVertices);
 
@@ -41,38 +42,60 @@ vector<Vertex*> operation1(Graph& graph, int n_entregadores, Request& request) {
     return deliverymen;
 }
 
-vector<Vertex*> operation2(Graph& graph, Vertex& deliveryman, Request& request) {
+vector<Edge*> operation2(Graph& graph, Vertex& deliveryman, Request& request) {
     vector<int> distances(graph.nVertices);
     vector<int> distances2(graph.nVertices);
     vector<Vertex*> parents(graph.nVertices);
     vector<Vertex*> parents2(graph.nVertices);
-    vector<Vertex*> path_to_seller; // vector of (street name, street number)
-    vector<Vertex*> path_to_client; // vector of (street name, street number)
+    vector<Edge*> path_to_seller; // vector of (street name, street number)
+    vector<Edge*> path_to_client; // vector of (street name, street number)
 
     // lista de distancias do entregador até todos os vertices
     dijkstra(deliveryman, graph, distances, parents);
 
     path_to_seller = getPath(deliveryman, request.seller, parents);
+    
+    cout << "Size of path_to_seller: " << path_to_seller.size() << endl; 
 
-    // for (int i = 0; i < path_to_seller.size(); i++) {
-    //     cout << path_to_seller[i]->name << ", " << path_to_seller[i]->starting_number << "-" << path_to_seller[i]->ending_number << endl;
-    // }
+    cout << "PATH TO SELLER:" << endl;
+    for (int i = 0; i < path_to_seller.size(); i++) {
+        cout << path_to_seller[i]->name << ", " << path_to_seller[i]->starting_number << "-" << path_to_seller[i]->ending_number << endl;
+    }
+
+    cout << "" << endl;
 
     // lista de distancias do entregador (agora na loja) até todos os vertices
-    //dijkstra(request.seller, graph, distances2, parents2);
+    dijkstra(request.seller, graph, distances2, parents2);
 
-    //path_to_client = getPath(request.seller, request.client, parents2);
+    path_to_client = getPath(request.seller, request.client, parents2);
 
-    // cout << path_to_client.size() << endl;
-    // cout << path_to_seller.size() << endl;
+    cout << "Size of path_to_client: " << path_to_client.size() << endl; 
 
-    // // compose the two paths
-    // path_to_seller.insert(path_to_seller.end(), path_to_client.begin(), path_to_client.end());
+    cout << "PATH TO CLIENT:" << endl;
+    for (int i = 0; i < path_to_client.size(); i++) {
+        cout << path_to_client[i]->name << ", " << path_to_client[i]->starting_number << "-" << path_to_client[i]->ending_number << endl;
+    }
 
-    // for  (int i = 0; i < path_to_seller.size(); i++) {
-    //     cout << path_to_seller[i]->name << ", " << path_to_seller[i]->starting_number << "-" << path_to_seller[i]->ending_number << endl;
+    // for (int i=0; i < path_to_client.size(); i++) {
+    //     path_to_seller.push_back(path_to_client[i]);
     // }
 
-    return path_to_client;
+    return path_to_seller;
+}
+
+
+tuple<Deliveryman, DistributionCenter, vector<Edge*>> operation3(Graph& graph, Request& request) {
+    tuple<Deliveryman, DistributionCenter, vector<Edge*>> result(); //check if this initialization is working properly
+
+    // entregador deve coletar o produto em algum centro de distribuicao
+    
+    // iterar a lista de caminhos minimos ate encontrar o primeiro centro de distribuição 
+    // mais proximo q tenha o produto na quantidade desejada
+
+    // -> checar se o entregador tem espaço no carro
+    // -> checar se o centro de distribuição tem o produto
+
+    // entregador deve levar o produto até o endereço do cliente
+    // 
 
 }

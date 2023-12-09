@@ -36,17 +36,6 @@ void heapify(vector<tuple<Vertex*, int>>& heap, int n, int i) {
     }
 }
 
-// // Função para inserir um novo elemento no heap
-// void insertIntoHeap(vector<tuple<Vertex, int>>& heap, Vertex& v, int distance) {
-//     heap.push_back(tuple<Vertex, int>(v, distance));
-//     int i = heap.size() - 1;
-
-//     while (i > 0 && get<1>(heap[(i - 1) / 2]) > get<1>(heap[i])) {
-//         swap(heap, i, (i - 1) / 2);
-//         i = (i - 1) / 2;
-//     }
-// }
-
 void insertIntoHeap(vector<tuple<Vertex*, int>>& heap, Vertex& v, int distance) {
     // Criar uma nova tupla com o vértice e a distância
     tuple<Vertex*, int> newNode(&v, distance);
@@ -89,19 +78,6 @@ Vertex* removeMin(vector<tuple<Vertex*, int>>& heap) {
     return min;
 }
 
-// int calculateDistance(Vertex* v1, Vertex* v2) {
-//     for (auto& edge : v1->streets_connected) {
-//         for (auto& edge2 : v2->streets_connected) {
-//             // if street names are the same
-//             if (get<0>(edge).name == get<0>(edge2).name) {
-//                 // get the difference
-//                 int v1_number = get<1>(edge);
-//                 int v2_number = get<1>(edge2);
-//                 return abs(v1_number - v2_number);
-//             }
-//         }
-//     }
-// }
 
 // Função para realizar o algoritmo de Dijkstra
 void dijkstra(Vertex& start, Graph& graph, vector<int> &distances, vector<Vertex*> &parents) {
@@ -129,7 +105,7 @@ void dijkstra(Vertex& start, Graph& graph, vector<int> &distances, vector<Vertex
             } else if (e->vertex2->id==u->id) {
                 v = e->vertex1;
             }
-            for (tuple<Edge*, int> tupla_v : v->streets_connected) {
+            for (tuple<Edge*, int>& tupla_v : v->streets_connected) {
                 Edge* j = get<0>(tupla_v);
                 if (e->name==j->name) {
                     int cost = abs(get<1>(tupla) - get<1>(tupla_v));
@@ -143,29 +119,47 @@ void dijkstra(Vertex& start, Graph& graph, vector<int> &distances, vector<Vertex
         }
     }
 
-    for (int i=0; i<graph.nVertices; i++) {
-        if (parents[i]) {
-            cout << "parent de " + graph.vertices[i]->name + " é: " + parents[i]->name << endl;
-            cout << parents[i]->predecessor << endl; 
-            //cout << "parent de " + to_string(i) + "é: " + parents[i]->name << endl;
-        } else {
-            cout << "ponteiro vazio para " << graph.vertices[i]->name << endl;
-        }
-    }
+    // for (int i=0; i<graph.nVertices; i++) {
+    //      if (parents[i]) {
+    //          cout << "parent de " + to_string(i) + "é: " + parents[i]->name << endl;
+    //      } else {
+    //          cout << "ponteiro vazio para" << to_string(i) << endl;
+    //      }
+    //  }
 }
 
-vector<Vertex*> getPath(Vertex& start, Vertex& destination, const vector<Vertex*>& parents) {
+vector<Edge*> getPath(Vertex& start, Vertex& destination, const vector<Vertex*>& parents) {
     vector<Vertex*> path;
+    vector<Edge*> path_as_streets;
+
     Vertex* current = &destination;
-    cout << start.predecessor << endl;
-    while (current != nullptr) {
-        path.push_back(current);
-        cout << current->street << endl;
-        cout << current->predecessor << endl;
-        current = current->predecessor;
+    Vertex* parent_vertex;
+
+    int parent_id;
+    // the index where the current vertex is located is the id of its parent
+    for (int i = 0; i < parents.size(); i++) {
+        
+        if (parents[i]->id == current->id) {
+            parent_id = i;
+        
+            for (int i = 0; i < parents.size(); i++) {
+                if (parents[i]->id == parent_id) {current = parents[i];}            
+            }
+            
+            path.push_back(current);
+        }
     }
 
-    reverse(path.begin(), path.end());
+    for (int i = 0; i < path.size(); i++) {
+        vector<tuple<Edge*, int>> streets_connected_to_vertex_i = path[i]->streets_connected;
+        for (int j=0; j < streets_connected_to_vertex_i.size(); j++) {
+            Edge* street_j_connected_to_vertex_i = get<0>(streets_connected_to_vertex_i[j]);
 
-    return path;
+            if (street_j_connected_to_vertex_i->vertex1->id == path[i]->id || street_j_connected_to_vertex_i->vertex2->id == path[i]->id) {
+                path_as_streets.push_back(street_j_connected_to_vertex_i);
+            }
+        }
+    }
+
+    return path_as_streets;
 }

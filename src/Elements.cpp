@@ -19,7 +19,7 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 /* ---------------------------------------------- */
 /* ------------ CORNER ------------ */
 Vertex::Vertex() noexcept {
-    static int32_t id=1;
+    static int32_t id=0;
     this->id = id++;
     name = "Corner" + to_string(id);
     streets_connected = vector<tuple<Edge*, int>>();

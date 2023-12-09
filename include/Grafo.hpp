@@ -15,18 +15,12 @@ class Graph {
 public:
     vector<Vertex*> vertices;
     vector<Edge*> streets;
-    // vector<DistributionCenter> distributionCenters;
-    // vector<Seller> sellers;
-    // vector<Deliveryman> deliverymen;
     int nVertices;
 
     Graph();
 
     void addVertex(Vertex* vertex);
     void addStreet(Edge* edge);
-    // void addDistributionCenter(const DistributionCenter& dc);
-    // void addSeller(const Seller& seller);
-    // void addDeliveryman(const Deliveryman& deliveryman);
     
     void displayInfo() const;
 };

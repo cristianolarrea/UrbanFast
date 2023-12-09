@@ -9,8 +9,9 @@ public:
     Seller seller;
     Product product;
     int quantity;
+    bool is_optimized;
 
-    Request(const Client& cn, const Seller& sn, const Product& pn, int q);
+    Request(const Client& cn, const Seller& sn, const Product& pn, int q, bool o);
 
     void decreaseDeliverymanCapacity(Deliveryman& deliveryman);
     void increaseDeliverymanCapacity(Deliveryman& deliveryman);

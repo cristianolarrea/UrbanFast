@@ -3,7 +3,7 @@
 /* ---------------------------------------------- */
 /* ------------ REQUEST ------------*/
 
-Request::Request(const Client& cn, const Seller& sn, const Product& pn, int q) : client(cn), seller(sn), product(pn), quantity(q) {}
+Request::Request(const Client& cn, const Seller& sn, const Product& pn, int q, bool o) : client(cn), seller(sn), product(pn), quantity(q), is_optimized(o) {}
 
 // Decreases the deliveryman's current capacity
 void Request::decreaseDeliverymanCapacity(Deliveryman& deliveryman) {
