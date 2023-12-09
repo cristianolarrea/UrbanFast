@@ -13,21 +13,6 @@ void Graph::addStreet(Edge* edge) {
     edge->vertex2->streets_connected.push_back(make_tuple(edge, edge->ending_number));
 }
 
-// void Graph::addDistributionCenter(const DistributionCenter& dc) {
-//     vertices.push_back(dc);
-//     this->nVertices++;
-// }
-
-// void Graph::addSeller(const Seller& seller) {
-//     vertices.push_back(seller);
-//     this->nVertices++;
-// }
-
-// void Graph::addDeliveryman(const Deliveryman& deliveryman) {
-//     vertices.push_back(deliveryman);
-//     this->nVertices++;
-// }
-
 void Graph::displayInfo() const {
     cout << "STREETS:" << endl;
     for (const auto& street : streets) {

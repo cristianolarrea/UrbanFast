@@ -21,6 +21,7 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 Vertex::Vertex() noexcept {
     static int32_t id=1;
     this->id = id++;
+    name = "Corner" + to_string(id);
     streets_connected = vector<tuple<Edge*, int>>();
     distance = INT_MAX;
     predecessor = nullptr;

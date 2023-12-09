@@ -104,9 +104,8 @@ Vertex* removeMin(vector<tuple<Vertex*, int>>& heap) {
 // }
 
 // Função para realizar o algoritmo de Dijkstra
-void dijkstra(Vertex& start, Graph& graph, vector<int> &distances) {
+void dijkstra(Vertex& start, Graph& graph, vector<int> &distances, vector<Vertex*> &parents) {
     vector<tuple<Vertex*, int>> pq;
-    vector<Vertex*> parents(graph.nVertices);
     vector<bool> checked(graph.nVertices);
 
     for (Vertex* v : graph.vertices) {
@@ -114,7 +113,6 @@ void dijkstra(Vertex& start, Graph& graph, vector<int> &distances) {
         checked[v->id] = false;
         distances[v->id] = INT_MAX;
     }
-
 
     parents[start.id] = &start;
     distances[start.id] = 0;
@@ -145,11 +143,29 @@ void dijkstra(Vertex& start, Graph& graph, vector<int> &distances) {
         }
     }
 
-    // for (int i=0; i<graph.nVertices; i++) {
-    //     if (parents[i]) {
-    //         cout << "parent de " + to_string(i) + "é: " + parents[i]->name << endl;
-    //     } else {
-    //         cout << "ponteiro vazio para" << to_string(i) << endl;
-    //     }
-    // }
+    for (int i=0; i<graph.nVertices; i++) {
+        if (parents[i]) {
+            cout << "parent de " + graph.vertices[i]->name + " é: " + parents[i]->name << endl;
+            cout << parents[i]->predecessor << endl; 
+            //cout << "parent de " + to_string(i) + "é: " + parents[i]->name << endl;
+        } else {
+            cout << "ponteiro vazio para " << graph.vertices[i]->name << endl;
+        }
+    }
+}
+
+vector<Vertex*> getPath(Vertex& start, Vertex& destination, const vector<Vertex*>& parents) {
+    vector<Vertex*> path;
+    Vertex* current = &destination;
+    cout << start.predecessor << endl;
+    while (current != nullptr) {
+        path.push_back(current);
+        cout << current->street << endl;
+        cout << current->predecessor << endl;
+        current = current->predecessor;
+    }
+
+    reverse(path.begin(), path.end());
+
+    return path;
 }
