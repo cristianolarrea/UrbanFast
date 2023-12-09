@@ -19,13 +19,12 @@ Vehicle::Vehicle(const string& n, double mw) : name(n), maxCapacity(mw) {}
 /* ---------------------------------------------- */
 /* ------------ CORNER ------------ */
 Vertex::Vertex() noexcept {
-    static int32_t id = 0;
-    name = "Corner" + to_string(id);
+    static int32_t id=1;
     this->id = id++;
-    streets_connected = vector<tuple<Edge, int>>();
+    streets_connected = vector<tuple<Edge*, int>>();
     distance = INT_MAX;
-    previous = nullptr;
-    this->type = "Corner";
+    predecessor = nullptr;
+    type = "Corner";
 }
 
 /* ---------------------------------------------- */
@@ -41,7 +40,7 @@ DistributionCenter::DistributionCenter(const string& n, const string& street, co
     name = n;
     this->street = street;
     this->number = number;
-    this->type = "Distribution Center";
+    type = "Distribution Center";
 }
 
 // Adds a new product to the inventory [(Produto1, Quantidade)]
@@ -91,10 +90,10 @@ void DistributionCenter::displayInfo() const {
 /* ------------ SELLER ------------*/
 
 Seller::Seller(const string& n, const string& street, const int32_t& number) : Vertex() {
-    name = n;
+    this->name = n;
     this->street = street;
     this->number = number;
-    this->type = "Seller";
+    type = "Seller";
 }
 
 // Adds a new product to the seller's catalog
@@ -127,11 +126,11 @@ void Seller::displayInfo() const {
 /* ---------------------------------------------- */
 /* ------------ CLIENT ------------*/
 
-Client::Client(const string& n, const string& street, const int32_t& number) : Vertex() {
-    name = n;
+Client::Client(const std::string& n, const std::string& street, const int32_t& number) : Vertex() {
+    this->name = n;
     this->street = street;
     this->number = number;
-    this->type = "Client";
+    type = "Client";
 }
 
 // Displays the information of the client
@@ -146,10 +145,10 @@ void Client::displayInfo() const {
 /* ------------ DELIVERYMAN ------------*/
 
 Deliveryman::Deliveryman(const string& n, const string& street, const int32_t& number, const string& v, double mw) : Vertex(), vehicle(v, mw) {
-    name = n;
+    this->name = n;
     this->street = street;
     this->number = number;
-    this->type = "Deliveryman";
+    type = "Deliveryman";
 }
 
 // Displays the information of the deliveryman
